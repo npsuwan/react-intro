@@ -1,59 +1,49 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const SearchForm = () =>{
-    return (
-        <form>
-            <input type="text"/>
-            <button type="submit">search</button>
-        </form>
-    )
+class SearchForm extends React.Component{
+    onSearchClick(event){
+        event.preventDefault()
+        console.log('this.onSearchClick',event)        
+    }
+    render(){
+        return (
+            <form>
+                <input type="text" />
+                <button onClick={this.onSearchClick}>Search</button>
+            </form>
+        )
+    }
 }
-const Header = (props) => (
-    <header>
-        <h1>{props.title}</h1>
-        <SearchForm/>
-    </header>
+const MovieList = (props) => (
+    <ul>
+    {props.movies.map((movie, i) => {
+        return (
+            <li key={i}>{movie.title}</li>
+        )
+    })}
+    </ul>
 )
 
-const Items = (props) => {
-    console.log(props.items)
-    return (
-        <ul>
-        {props.items.map(item => (
-            <li>{item}</li>
-        ))}
-        </ul>
-    )
-}
-const Content = (props) => (
-    <section>
-        <p>{props.content}</p>
-        <Items items={props.items}/>
-    </section>
-)
-
-const AppWithoutDescription = () =>(
-    <Header title="No descript here"/>
-)
 const App = () => {
-    const title = 'Frontects: React123'
-    const content = 'This is a simple react application'
-    const items = [
-        "Oliver",
-        "Tobey",
-        "Charlie",
-        "Lucky"
+    const movies = [
+        {
+            title: 'Rogue One: A Star Wars Story'
+        },
+        {
+            title: 'Guardians of the Galaxy Vol. 2'
+        },
+        {
+            title: 'Doctor Strange'
+        }
     ]
     return (
         <section>
-            <Header title={title} />
-            <Content 
-                content={content} 
-                items = {items}/>
+            <h1>Movie Collection</h1>
+            <SearchForm />
+            <MovieList movies={movies} />
         </section>
     )
 }
 
-const element = document.getElementById('app')
-ReactDOM.render(<App />,element)
+ReactDOM.render(<App />, document.getElementById('app'))
