@@ -5,8 +5,26 @@ import axios from 'axios'
 import {
     Router,
     Route,
-    hashHistory
+    hashHistory,
+    Link
 } from 'react-router'
+
+const Home = () =>(
+
+    <section>
+        <Nav />
+        <h1>This is Home</h1>
+    </section>
+)
+
+const Nav = () =>(
+    <nav>
+        <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/Search">Search</Link></li>
+        </ul>
+    </nav>
+)
 
 const MovieList = (props) => (
     <ul>
@@ -48,13 +66,21 @@ class Search extends React.Component{
     }
 }
 
+const App = props => (
+    <section>
+        <Nav />
+        {props.children}
+
+    </section>
+)
+
 class Main extends React.Component{
     render(){
         return (
             <Router history = {hashHistory}>
-                <Route path="/search" 
-                    component={Search}
-                />
+                <Route path="/" component={App} >
+                    <Route path="search" component={Search}/>
+                </Route>
             </Router>
         )
     }
