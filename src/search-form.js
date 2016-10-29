@@ -11,7 +11,7 @@ export class SearchForm extends React.Component{
     }
     onQueryChange(event){
         const query = event.target.value
-        console.log('this.onQueryChange',query)
+        //console.log('this.onQueryChange',query)
         this.setState({
             query: query
         })
